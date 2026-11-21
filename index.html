@@ -3,53 +3,70 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>아이유 페르소나 아카이브 — 챗봇보다 먼저, 넣을 말을 고릅니다</title>
-  <meta name="description" content="페르소나 챗봇에 넣을 자료를 모으고 다듬는 1인용 수집 도구. 원문을 발화·관점·사실로 자르고, 사람이 한 건씩 검수해 승인한 것만 내보냅니다.">
-  <meta property="og:title" content="아이유 페르소나 아카이브">
-  <meta property="og:description" content="챗봇보다 먼저, 넣을 말을 고릅니다.">
+  <title>페르소나 아카이브 — 한 사람의 말과 기억을 보존합니다</title>
+  <meta name="description" content="가족과 친구, 반려동물의 기억을 RAG와 파인튜닝에 쓸 수 있게 체계적으로 모으는 수집 플랫폼. 첫 사례로 아이유 페르소나 아카이브에서 방법을 검증하고 있습니다.">
+  <meta property="og:title" content="페르소나 아카이브">
+  <meta property="og:description" content="한 사람의 말과 기억을, 고치지 않고 보존합니다.">
   <meta property="og:image" content="assets/og.png">
   <link rel="icon" href="assets/icon.png">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header class="top" id="top">
-    <a class="brand" href="./"><img src="assets/icon.png" alt="" width="40" height="40"><span>아이유 페르소나 아카이브</span></a>
+    <a class="brand" href="./"><img src="assets/icon.png" alt="" width="40" height="40"><span>페르소나 아카이브</span></a>
     <nav>
       <a href="https://blog.metaphr.dev/2026-11-21/iu-persona-archive-data-pipeline">제작기</a>
       <a href="https://metaphr.dev/app.html?id=iu-archive">metaphr.dev</a>
     </nav>
   </header>
 
-  <!-- 1. 첫 화면: 흩어진 조각 중 남길 것만 형광펜이 칠해진다 -->
+  <!-- 1. 첫 화면: 흩어진 조각 중 남길 것만 형광펜이 칠해진다(조각은 예시 사례에서) -->
   <section class="hero" id="hero">
     <div class="frags" id="frags" aria-hidden="true"></div>
     <div class="hero-core" id="heroCore">
-      <img class="hero-icon" src="assets/icon-160.png" alt="" width="112" height="112">
-      <h1>아이유<br>페르소나 아카이브</h1>
-      <p>챗봇보다 먼저, <mark>넣을 말</mark>을 고릅니다.</p>
+      <img class="hero-portrait" src="assets/portrait.webp" alt="" width="168" height="168">
+      <p class="eyebrow"><span>예시</span>아이유 페르소나 아카이브</p>
+      <h1>페르소나<br>아카이브</h1>
+      <p>한 사람의 말과 기억을, <mark>고치지 않고</mark> 보존합니다.</p>
       <div class="cta">
-        <a class="btn primary" href="#show">어떻게 고르나요</a>
+        <a class="btn primary" href="#about">무엇을 하나요</a>
         <a class="btn ghost" href="https://blog.metaphr.dev/2026-11-21/iu-persona-archive-data-pipeline">제작기 읽기</a>
       </div>
     </div>
     <div class="scroll-cue" aria-hidden="true"><span></span></div>
   </section>
 
+  <!-- 1-2. 소개: 플랫폼과 예시 -->
+  <section class="about" id="about">
+    <h2>흉내가 아니라, 보존.</h2>
+    <p class="lead">페르소나 아카이브는 가족과 친구, 반려동물과 나눈 기억을 RAG와 파인튜닝에 쓸 수 있는 형태로 체계적으로 모으는 수집 플랫폼입니다. 떠나보낸 뒤에도 그 사람다운 말을 다시 꺼내 볼 수 있게 — 다만 그 사람이 하지 않은 말은 끝까지 만들지 않도록.</p>
+    <div class="about-cols">
+      <div class="about-card">
+        <b>지금</b>
+        <p>대화형 모델을 만들기 전, 자료를 모으고 다듬는 프리프로덕션 단계의 연구입니다.</p>
+      </div>
+      <div class="about-card ex">
+        <b><span>예시</span>아이유 페르소나 아카이브</b>
+        <p>공개된 방송·인터뷰 자료가 많은 인물로 수집 방법을 먼저 검증하는 첫 사례입니다. 아래 화면은 모두 이 예시에서 나왔습니다.</p>
+      </div>
+    </div>
+  </section>
+
   <!-- 2. 장면: 스크롤에 맞춰 재생 -->
   <section class="show" id="show" aria-label="작업 흐름">
     <div class="stage">
       <ol class="captions" id="captions">
-        <li class="on"><h2>원문을 붙여 넣습니다</h2><p>토크·라디오·콘서트를 받아 적은 글. 영상과 음성은 두지 않습니다.</p></li>
+        <li class="on"><h2>원문을 붙여 넣습니다</h2><p>그 사람이 실제로 한 말을 받아 적은 글. 영상과 음성은 두지 않습니다.</p></li>
         <li><h2>세 갈래로 자릅니다</h2><p>한 말 그대로는 발화, 생각과 취향은 관점, 일화는 사실.</p></li>
-        <li><h2>한 글자라도 다르면 뺍니다</h2><p>LLM이 다듬은 말은 원문과 대조해 걸러 냅니다.</p></li>
+        <li><h2>한 글자라도 다르면 뺍니다</h2><p>LLM이 다듬은 말은 원문과 대조해 걸러 냅니다. 하지 않은 말은 남기지 않습니다.</p></li>
         <li><h2>같은 이야기는 견줘 봅니다</h2><p>겹치면 알리고, 모순이면 빨갛게. 판단은 사람이 합니다.</p></li>
-        <li><h2>쏠리면 칠합니다</h2><p>주제와 시기마다 목표 비율. 넘치면 빨강, 모자라면 주황.</p></li>
+        <li><h2>쏠리면 칠합니다</h2><p>한 시절, 한 주제만 남지 않게. 넘치면 빨강, 모자라면 주황.</p></li>
       </ol>
 
       <div class="device-wrap" id="deviceWrap">
         <div class="device" id="device">
           <div class="d-bar">
-            <b class="d-brand">아이유 페르소나 아카이브</b>
+            <b class="d-brand"><i class="ex-pill">예시</i>아이유 페르소나 아카이브</b>
             <span class="d-tab" data-tab="0">목표</span>
             <span class="d-tab on" data-tab="1">입력</span>
             <span class="d-tab" data-tab="2">검수 <i id="pending">0</i></span>
@@ -144,7 +161,7 @@
 
   <!-- 3. 실제 화면: 반대 방향으로 흐르는 두 줄 -->
   <section class="reel" id="reel" aria-label="실제 화면">
-    <p class="reel-note">실제 화면을 목업 데이터로 찍었습니다. 대괄호 속 문장은 자리를 채운 예시입니다.</p>
+    <p class="reel-note"><span class="ex-pill">예시</span> 아이유 페르소나 아카이브의 실제 화면을 목업 데이터로 찍었습니다. 대괄호 속 문장은 자리를 채운 예시입니다.</p>
     <div class="reel-row" data-dir="-1">
       <a href="assets/shots/input.png"><img src="assets/shots/input.png" alt="입력 — 원문과 변환 결과 카드" loading="lazy" width="1280" height="800"></a>
       <a href="assets/shots/review.png"><img src="assets/shots/review.png" alt="검수 — 같은 내용 92% 표시" loading="lazy" width="1280" height="800"></a>
@@ -170,20 +187,32 @@
     <p class="out-note">원문은 부모 문서로 따로 나가고, 말투는 학습으로, 사실은 검색으로 씁니다.</p>
   </section>
 
+  <!-- 4-2. 다음 -->
+  <section class="next" id="next">
+    <h2>다음은 가까운 사람의 기억.</h2>
+    <p class="lead">공개 자료가 거의 없고, 기억은 남은 사람들에게 흩어져 있습니다. 예시에서 세운 원칙 위에서 풀어야 할 질문들입니다.</p>
+    <ol class="qs">
+      <li><b>동의</b><span>누가 수집을 허락하는가. 남은 가족끼리 생각이 다르면.</span></li>
+      <li><b>사생활</b><span>공인이 아닌 사람의 기억에서 무엇을 남기고 무엇을 지킬지.</span></li>
+      <li><b>받아쓴 말과 기억한 말</b><span>음성 메시지를 옮긴 말과, 가족이 기억해서 옮긴 말은 같은 무게가 아닙니다.</span></li>
+      <li><b>말이 없는 기억</b><span>반려동물에게는 발화가 없습니다. 무엇을 항목으로 삼을지부터.</span></li>
+    </ol>
+  </section>
+
   <!-- 5. 마무리 -->
   <section class="get" id="get">
     <img src="assets/icon-160.png" alt="" width="72" height="72">
-    <h2>관리자 한 명이 쓰는 도구입니다.</h2>
+    <h2>한 사람을 보존하는 방법을 연구합니다.</h2>
     <div class="cta">
       <a class="btn primary big" href="https://blog.metaphr.dev/2026-11-21/iu-persona-archive-data-pipeline">제작기 읽기</a>
       <a class="btn ghost big" href="https://metaphr.dev/app.html?id=iu-archive">metaphr.dev 소개</a>
     </div>
-    <p class="get-note">운영 화면은 로그인한 관리자만 열 수 있습니다.</p>
+    <p class="get-note">지금은 프리프로덕션 단계입니다. 예시 사례의 운영 화면은 관리자만 열 수 있습니다.</p>
   </section>
 
   <footer class="foot">
     <p>문의 <a href="mailto:ksthink@metaphr.dev">ksthink@metaphr.dev</a><span class="sep"></span><a href="https://metaphr.dev">metaphr.dev</a></p>
-    <p>아이유 본인 및 소속사와 관련이 없는 개인 프로젝트입니다. 상업적으로 쓰지 않습니다.</p>
+    <p>예시로 쓴 아이유 페르소나 아카이브는 아이유 본인 및 소속사와 관련이 없는 연구용 사례입니다. 상업적으로 쓰지 않습니다.</p>
   </footer>
 
   <script src="app.js"></script>

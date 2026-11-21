@@ -16,11 +16,11 @@ const FRAGS = [
   ['<b>관점</b><span class="pen">좋아함 · 산책</span>', 80, 33, 0.4, '', 1],
   ['Q. 요즘 뭐 하세요?', 3, 44, 0.7, '', 0],
   ['✕ 원문과 다름', 74, 56, 0.6, 'red', 0],
-  ['<b>사실</b><span class="pen">열다섯 살 가을에 데뷔</span>', 12, 71, 0.9, '', 1],
+  ['<b>사실</b><span class="pen">열다섯 살 가을에 데뷔</span>', 4, 80, 0.9, '', 1],
   ['30대 초반 88%', 64, 79, 0.45, 'red', 0],
   ['✓ 원문 일치', 30, 9, 0.3, 'green', 0],
   ['<span class="pen">"할머니가 제일 먼저…"</span>', 84, 74, 0.75, 'q', 1],
-  ['모순 83%', 8, 88, 0.5, 'red', 0],
+  ['모순 83%', 16, 91, 0.5, 'red', 0],
   ['어린 시절 2%', 58, 92, 0.65, '', 0],
   ['<b>발화</b>[예시 답변 ③]', 88, 7, 0.4, 'q', 0],
 ];
@@ -32,7 +32,7 @@ const frags = FRAGS.map(([html, x, y, speed, cls, keep], i) => {
   el.style.left = `${x}%`;
   el.style.top = `${y}%`;
   if (!reduceMotion) el.animate([{ opacity: 0, translate: '0 14px' }, { opacity: 1, translate: '0 0' }], { duration: 600, delay: 120 + i * 70, easing: 'cubic-bezier(.3,1.3,.5,1)', fill: 'backwards' });
-  if (y > 22 && y < 78) el.classList.add('mid');
+  if (y > 12 && y < 86) el.classList.add('mid');
   fragWrap.append(el);
   return { el, speed, x, keep };
 });
