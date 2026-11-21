@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>아이유 페르소나 아카이브 — 챗봇보다 먼저, 넣을 말을 고릅니다</title>
+  <meta name="description" content="페르소나 챗봇에 넣을 자료를 모으고 다듬는 1인용 수집 도구. 원문을 발화·관점·사실로 자르고, 사람이 한 건씩 검수해 승인한 것만 내보냅니다.">
+  <meta property="og:title" content="아이유 페르소나 아카이브">
+  <meta property="og:description" content="챗봇보다 먼저, 넣을 말을 고릅니다.">
+  <meta property="og:image" content="assets/og.png">
+  <link rel="icon" href="assets/icon.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="top" id="top">
+    <a class="brand" href="./"><img src="assets/icon.png" alt="" width="40" height="40"><span>아이유 페르소나 아카이브</span></a>
+    <nav>
+      <a href="https://blog.metaphr.dev/2026-11-21/iu-persona-archive-data-pipeline">제작기</a>
+      <a href="https://metaphr.dev/app.html?id=iu-archive">metaphr.dev</a>
+    </nav>
+  </header>
+
+  <!-- 1. 첫 화면: 흩어진 조각 중 남길 것만 형광펜이 칠해진다 -->
+  <section class="hero" id="hero">
+    <div class="frags" id="frags" aria-hidden="true"></div>
+    <div class="hero-core" id="heroCore">
+      <img class="hero-icon" src="assets/icon-160.png" alt="" width="112" height="112">
+      <h1>아이유<br>페르소나 아카이브</h1>
+      <p>챗봇보다 먼저, <mark>넣을 말</mark>을 고릅니다.</p>
+      <div class="cta">
+        <a class="btn primary" href="#show">어떻게 고르나요</a>
+        <a class="btn ghost" href="https://blog.metaphr.dev/2026-11-21/iu-persona-archive-data-pipeline">제작기 읽기</a>
+      </div>
+    </div>
+    <div class="scroll-cue" aria-hidden="true"><span></span></div>
+  </section>
+
+  <!-- 2. 장면: 스크롤에 맞춰 재생 -->
+  <section class="show" id="show" aria-label="작업 흐름">
+    <div class="stage">
+      <ol class="captions" id="captions">
+        <li class="on"><h2>원문을 붙여 넣습니다</h2><p>토크·라디오·콘서트를 받아 적은 글. 영상과 음성은 두지 않습니다.</p></li>
+        <li><h2>세 갈래로 자릅니다</h2><p>한 말 그대로는 발화, 생각과 취향은 관점, 일화는 사실.</p></li>
+        <li><h2>한 글자라도 다르면 뺍니다</h2><p>LLM이 다듬은 말은 원문과 대조해 걸러 냅니다.</p></li>
+        <li><h2>같은 이야기는 견줘 봅니다</h2><p>겹치면 알리고, 모순이면 빨갛게. 판단은 사람이 합니다.</p></li>
+        <li><h2>쏠리면 칠합니다</h2><p>주제와 시기마다 목표 비율. 넘치면 빨강, 모자라면 주황.</p></li>
+      </ol>
+
+      <div class="device-wrap" id="deviceWrap">
+        <div class="device" id="device">
+          <div class="d-bar">
+            <b class="d-brand">아이유 페르소나 아카이브</b>
+            <span class="d-tab" data-tab="0">목표</span>
+            <span class="d-tab on" data-tab="1">입력</span>
+            <span class="d-tab" data-tab="2">검수 <i id="pending">0</i></span>
+            <span class="d-tab">자료</span>
+          </div>
+
+          <!-- 입력 화면 -->
+          <div class="d-body v-input" id="vInput">
+            <div class="raw">
+              <div class="raw-head">원문</div>
+              <div class="line" data-l="0"><span>진행자</span><p>요즘 쉬는 날에는 뭐 하세요?</p></div>
+              <div class="line" data-l="1"><span>아이유</span><p><em>[예시 답변 ①] 쉬는 날에는 산책을 오래 해요.</em></p></div>
+              <div class="line" data-l="2"><span>진행자</span><p>처음 노래를 들려준 분이 누구예요?</p></div>
+              <div class="line" data-l="3"><span>아이유</span><p><em>[예시 답변 ②] 할머니가 제일 먼저 들어 주셨어요.</em></p></div>
+              <div class="line" data-l="4"><span>진행자</span><p>데뷔는 언제였죠?</p></div>
+              <div class="line" data-l="5"><span>아이유</span><p><em>[예시 답변 ③] 열다섯 살 가을이었어요.</em></p></div>
+            </div>
+
+            <div class="cards" id="cards">
+              <div class="card" data-c="0">
+                <div class="c-top"><b class="t">발화</b><i class="tag">일상·취향</i><span class="ok">✓ 원문 일치</span></div>
+                <q>[예시 답변 ①] 쉬는 날에는 산책을 오래 해요.</q>
+              </div>
+              <div class="card" data-c="1">
+                <div class="c-top"><b class="t">관점</b><i class="like">좋아함</i><i class="tag">일상·취향</i><span class="ok">✓ 통과</span></div>
+                <q>쉬는 날 오래 걷는 산책을 좋아한다.</q>
+              </div>
+              <div class="card" data-c="2">
+                <div class="c-top"><b class="t">사실</b><i class="tag">데뷔 후 10대</i><span class="ok">✓ 통과</span></div>
+                <q>열다섯 살 가을에 데뷔했다.</q>
+              </div>
+              <div class="card bad" data-c="3" id="badCard">
+                <div class="c-top"><b class="t">발화</b><i class="who">할머니 · 가족</i><span class="ng" id="badState">✕ 원문과 다름</span></div>
+                <q><span class="extra" id="extra">정말 </span>[예시 답변 ②] 할머니가 제일 먼저 들어 주셨어요.</q>
+                <div class="fix" id="fix"><span class="fix-btn" id="fixBtn">원문으로 되돌리기</span><span>빼기</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 검수 화면 -->
+          <div class="d-body v-review" id="vReview">
+            <div class="rv-card">
+              <div class="c-top"><b class="t">관점</b><span class="meta">본인 · 2025-03-14 · 31세</span></div>
+              <q class="rv-q">곡을 쓸 때 제목은 맨 마지막에 정한다고 말했다.</q>
+              <div class="dup same" id="dupSame">
+                <div class="dup-h"><b>같은 내용</b> 92%</div>
+                <div class="dup-item">[다른 방송] 곡을 쓰고 나서 제목을 붙인다고 말했다.</div>
+              </div>
+              <div class="dup contra" id="dupContra">
+                <div class="dup-h"><b>모순되는 항목</b> 83%</div>
+                <div class="dup-item">[인터뷰 기사] 곡을 쓸 때 가장 먼저 제목을 정한다고 말했다.</div>
+              </div>
+              <div class="rv-actions"><span class="k">반려 R</span><span class="k dark" id="approve">승인 A</span></div>
+            </div>
+          </div>
+
+          <!-- 목표 화면 -->
+          <div class="d-body v-goals" id="vGoals">
+            <div class="g-cols">
+              <div>
+                <h4>주제별 분포</h4>
+                <div class="g-row" data-v="0.48" data-goal="0.17"><span>음악·창작</span><i><b></b><u></u></i><em></em></div>
+                <div class="g-row" data-v="0.14" data-goal="0.17"><span>연기·작품</span><i><b></b><u></u></i><em></em></div>
+                <div class="g-row" data-v="0.12" data-goal="0.17"><span>가족·사람</span><i><b></b><u></u></i><em></em></div>
+                <div class="g-row" data-v="0.11" data-goal="0.17"><span>팬·공연</span><i><b></b><u></u></i><em></em></div>
+                <div class="g-row" data-v="0.10" data-goal="0.16"><span>일상·취향</span><i><b></b><u></u></i><em></em></div>
+                <div class="g-row" data-v="0.05" data-goal="0.16"><span>가치관·고민</span><i><b></b><u></u></i><em></em></div>
+              </div>
+              <div>
+                <h4>시기별 분포</h4>
+                <div class="g-row" data-v="0.04" data-goal="0.17"><span>어린 시절</span><i><b></b><u></u></i><em></em></div>
+                <div class="g-row" data-v="0.08" data-goal="0.17"><span>데뷔 전 10대</span><i><b></b><u></u></i><em></em></div>
+                <div class="g-row" data-v="0.12" data-goal="0.17"><span>데뷔 후 10대</span><i><b></b><u></u></i><em></em></div>
+                <div class="g-row" data-v="0.15" data-goal="0.17"><span>20대 초반</span><i><b></b><u></u></i><em></em></div>
+                <div class="g-row" data-v="0.18" data-goal="0.16"><span>20대 후반</span><i><b></b><u></u></i><em></em></div>
+                <div class="g-row" data-v="0.43" data-goal="0.16"><span>30대 초반</span><i><b></b><u></u></i><em></em></div>
+              </div>
+            </div>
+            <p class="g-legend"><i class="sw over"></i>쏠림 — 목표의 1.5배 넘음 <i class="sw under"></i>부족 — 목표의 절반 못 미침 <i class="sw goal"></i>목표</p>
+          </div>
+
+          <div class="hl-cursor" id="cursor" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="24" height="24"><path d="M4 2l15 9.5-6.6 1.3 3.9 7.6-3 1.5-3.9-7.7L4 19z" fill="#17171A" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="toast" id="toast"></div>
+        </div>
+      </div>
+
+      <div class="progress" id="progress" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+    </div>
+  </section>
+
+  <!-- 3. 실제 화면: 반대 방향으로 흐르는 두 줄 -->
+  <section class="reel" id="reel" aria-label="실제 화면">
+    <p class="reel-note">실제 화면을 목업 데이터로 찍었습니다. 대괄호 속 문장은 자리를 채운 예시입니다.</p>
+    <div class="reel-row" data-dir="-1">
+      <a href="assets/shots/input.png"><img src="assets/shots/input.png" alt="입력 — 원문과 변환 결과 카드" loading="lazy" width="1280" height="800"></a>
+      <a href="assets/shots/review.png"><img src="assets/shots/review.png" alt="검수 — 같은 내용 92% 표시" loading="lazy" width="1280" height="800"></a>
+      <a href="assets/shots/compare.png"><img src="assets/shots/compare.png" alt="비교 팝업 — 두 항목을 원문 앞뒤와 함께" loading="lazy" width="1280" height="800"></a>
+      <a href="assets/shots/original.png"><img src="assets/shots/original.png" alt="원문 보기 — 변형문과 원문 구간" loading="lazy" width="1280" height="800"></a>
+    </div>
+    <div class="reel-row" data-dir="1">
+      <a href="assets/shots/goals.png"><img src="assets/shots/goals.png" alt="목표 — 유형별 달성률과 분포" loading="lazy" width="1280" height="800"></a>
+      <a href="assets/shots/archive.png"><img src="assets/shots/archive.png" alt="자료 — 항목 표와 필터" loading="lazy" width="1280" height="800"></a>
+      <a href="assets/shots/settings.png"><img src="assets/shots/settings.png" alt="설정 — 목표 수와 주제·시기 비율" loading="lazy" width="1280" height="800"></a>
+      <a href="assets/shots/input.png"><img src="assets/shots/input.png" alt="입력 — 원문과 변환 결과 카드" loading="lazy" width="1280" height="800"></a>
+    </div>
+  </section>
+
+  <!-- 4. 내보내기 -->
+  <section class="out" id="out">
+    <h2>승인한 것만, 세 파일로.</h2>
+    <div class="files">
+      <div class="file"><b>style.jsonl</b><span>어떻게 말하는가</span></div>
+      <div class="file"><b>view.jsonl</b><span>무엇을 생각하고 좋아하는가</span></div>
+      <div class="file"><b>fact.jsonl</b><span>무엇이 사실인가</span></div>
+    </div>
+    <p class="out-note">원문은 부모 문서로 따로 나가고, 말투는 학습으로, 사실은 검색으로 씁니다.</p>
+  </section>
+
+  <!-- 5. 마무리 -->
+  <section class="get" id="get">
+    <img src="assets/icon-160.png" alt="" width="72" height="72">
+    <h2>관리자 한 명이 쓰는 도구입니다.</h2>
+    <div class="cta">
+      <a class="btn primary big" href="https://blog.metaphr.dev/2026-11-21/iu-persona-archive-data-pipeline">제작기 읽기</a>
+      <a class="btn ghost big" href="https://metaphr.dev/app.html?id=iu-archive">metaphr.dev 소개</a>
+    </div>
+    <p class="get-note">운영 화면은 로그인한 관리자만 열 수 있습니다.</p>
+  </section>
+
+  <footer class="foot">
+    <p>문의 <a href="mailto:ksthink@metaphr.dev">ksthink@metaphr.dev</a><span class="sep"></span><a href="https://metaphr.dev">metaphr.dev</a></p>
+    <p>아이유 본인 및 소속사와 관련이 없는 개인 프로젝트입니다. 상업적으로 쓰지 않습니다.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
